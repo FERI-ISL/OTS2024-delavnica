@@ -1,0 +1,37 @@
+import React from 'react';
+import { Box, Typography, Button, Stack } from '@mui/material';
+import {useNavigate} from "react-router-dom";
+
+const Menu = () => {
+    const navigation = useNavigate()
+
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: 2,
+                borderRadius: 2,
+                boxShadow: 3,
+                margin: 'auto',
+                backgroundColor: '#f5f5f5',
+            }}
+        >
+            <Typography variant="h5" sx={{ mb: 2 }}>
+                HRM Portal
+            </Typography>
+
+            <Stack direction="row" spacing={2}>
+                <Button variant="contained" color="primary" onClick={() => {navigation('/')}}>
+                    Applications
+                </Button>
+                <Button variant="contained" color="primary" onClick={() => {navigation('/resumes')}}>
+                    Resumes
+                </Button>
+            </Stack>
+        </Box>
+    );
+};
+
+export default Menu;
