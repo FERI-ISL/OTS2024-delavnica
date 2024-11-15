@@ -11,7 +11,7 @@ const DynamicTable = ({ data, infoCallback }) => {
     const headers = Object.keys(data[0]);
 
     return (
-        <TableContainer component={Paper} sx={{ maxWidth: '90%', margin: 'auto', mt: 2 }}>
+        <TableContainer component={Paper} sx={{ maxWidth: '90%', margin: 'auto', mt: 2, mb: 2 }}>
             <Table>
                 <TableHead>
                     <TableRow>
