@@ -14,8 +14,8 @@ const ApplicationsPage = () => {
     const [data, setData] = useState([])
 
     const handleInfoClick = async (rowData) => {
-        const employmentPrediction = await axios.post('http://localhost:5000/predict/employment', {rowData})
-        const salaryPrediciton = await axios.post('http://localhost:5000/predict/salary', {rowData})
+        const employmentPrediction = await axios.post('http://localhost:5000/predict/employment', rowData)
+        const salaryPrediciton = await axios.post('http://localhost:5000/predict/salary', rowData)
 
         setEmploymentData(employmentPrediction.data.employment)
         setSalaryData(salaryPrediciton.data.salary)
@@ -88,17 +88,9 @@ const ApplicationsPage = () => {
                     }}
                 >
                     <Typography id="modal-title" variant="h6" component="h2">
-                        Row Information
+                        Predictions
                     </Typography>
-                    {modalData && (
-                        <Box id="modal-description" sx={{ mt: 2 }}>
-                            {Object.entries(modalData).map(([key, value]) => (
-                                <div key={key}>
-                                    <strong>{key}:</strong> {value}
-                                </div>
-                            ))}
-                        </Box>
-                    )}
+
                     <Box id={'modal-description-predictions'}>
                         <div>
                             <strong>Employment:</strong> {employmentData !== null && employmentData !== undefined ? employmentData : 'N/A'}
