@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import ApplicationModel from "./models/application.js";
+import ApplicationModel from "./schemas/application.js";
 import fs from "fs";
 import csv from "csv-parser";
 
