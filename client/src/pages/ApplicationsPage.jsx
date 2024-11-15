@@ -1,7 +1,7 @@
 import Menu from "../components/Menu";
 import DynamicTable from "../components/DynamicTable";
 import {Box, Button, Modal, TextField, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
@@ -11,12 +11,7 @@ const ApplicationsPage = () => {
     const [employmentData, setEmploymentData] = useState(null)
     const [salaryData, setSalaryData] = useState(null)
     const [newModalOpen, setNewModalOpen] = useState(false)
-
-    const data = [
-        { name: 'Alice', age: 25, profession: 'Engineer' },
-        { name: 'Bob', age: 30, profession: 'Designer' },
-        { name: 'Charlie', age: 35, profession: 'Teacher' },
-    ];
+    const [data, setData] = useState([])
 
     const handleInfoClick = async (rowData) => {
         const employmentPrediction = await axios.post('http://localhost:5000/predict/employment', {rowData})
@@ -41,6 +36,20 @@ const ApplicationsPage = () => {
     const handleNewModalClose = () => {
         setNewModalOpen(false);
     };
+
+    const fetchApplicationsData = async () => {
+        try {
+            const applications = await axios.get('http://localhost:5000/applications')
+
+            setData(applications.data.applications)
+        } catch (err) {
+            console.log('Error fetching data')
+        }
+    }
+
+    useEffect(() => {
+        fetchApplicationsData()
+    }, [])
 
     return (
         <>
