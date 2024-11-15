@@ -4,7 +4,7 @@ const ApplicationSchema = new mongoose.Schema({
     Age: String,
     Accessibility: String,
     EdLevel: String,
-    Employment: Number,
+    Employment: String,
     Gender: String,
     MentalHealth: String,
     MainBranch: String,
