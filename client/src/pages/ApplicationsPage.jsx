@@ -14,8 +14,8 @@ const ApplicationsPage = () => {
     const [data, setData] = useState([])
 
     const handleInfoClick = async (rowData) => {
-        const employmentPrediction = await axios.post('http://localhost:5000/predict/employment', rowData)
-        const salaryPrediciton = await axios.post('http://localhost:5000/predict/salary', rowData)
+        const employmentPrediction = await axios.post('http://localhost:5555/predict/employment', rowData)
+        const salaryPrediciton = await axios.post('http://localhost:5555/predict/salary', rowData)
 
         setEmploymentData(employmentPrediction.data.employment)
         setSalaryData(salaryPrediciton.data.salary)
@@ -39,7 +39,7 @@ const ApplicationsPage = () => {
 
     const fetchApplicationsData = async () => {
         try {
-            const applications = await axios.get('http://localhost:5000/applications')
+            const applications = await axios.get('http://localhost:5555/applications')
 
             setData(applications.data.applications)
         } catch (err) {
