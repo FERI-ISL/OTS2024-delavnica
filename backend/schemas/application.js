@@ -12,7 +12,7 @@ const ApplicationSchema = new mongoose.Schema({
     YearsCodePro: Number,
     Country: String,
     ComputerSkills: Number,
-    Employed: Number,
+    Employed: String,
     ExpectedSalary: Number
 })
 
