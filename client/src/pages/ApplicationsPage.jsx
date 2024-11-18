@@ -17,6 +17,9 @@ const ApplicationsPage = () => {
         const employmentPrediction = await axios.post('http://localhost:5555/predict/employment', rowData)
         const salaryPrediciton = await axios.post('http://localhost:5555/predict/salary', rowData)
 
+        console.log(employmentPrediction.data.employment)
+        console.log(salaryPrediciton.data.salary)
+
         setEmploymentData(employmentPrediction.data.employment)
         setSalaryData(salaryPrediciton.data.salary)
 
@@ -96,7 +99,7 @@ const ApplicationsPage = () => {
                             <strong>Employment:</strong> {employmentData !== null && employmentData !== undefined ? employmentData : 'N/A'}
                         </div>
                         <div>
-                            <strong>Salary:</strong> {salaryData !== null && salaryData !== undefined ? salaryData : 'N/A'}
+                            <strong>Salary:</strong> {salaryData !== null && salaryData !== undefined ? salaryData.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'N/A'}
                         </div>
                     </Box>
                     <Button onClick={handleCloseModal} sx={{ mt: 3 }} variant="contained">
