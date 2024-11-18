@@ -7,7 +7,7 @@ import applicationsController from "./controllers/applications-controller.js";
 
 
 const app = express()
-const PORT = 5000
+const PORT = 5555
 
 app.use(express.json())
 app.use(cors())
