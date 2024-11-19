@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import ApplicationModel from "./schemas/application.js";
 import fs from "fs";
 import csv from "csv-parser";
+import ResumeModel from "./schemas/resumes.js";
 
 export const createConnection = async () => {
   try {
@@ -16,9 +17,13 @@ export const createConnection = async () => {
 };
 
 
-async function isCollectionEmpty() {
-    const count = await ApplicationModel.countDocuments();
-    return count === 0;
+async function isCollectionEmpty(collectionName) {
+    let count = 0
+    if(collectionName === 'Applications')
+        count = await ApplicationModel.countDocuments()
+    if(collectionName === 'Resumes')
+        count = await ResumeModel.countDocuments()
+    return count === 0
 }
 
 
@@ -47,13 +52,31 @@ async function insertDataFromCSV() {
     });
 }
 
+const insertDataFromJSON = async () => {
+    try {
+        const jsonData = JSON.parse(fs.readFileSync('./data/resumes.json', 'utf8'));
+
+        const result = await ResumeModel.insertMany(jsonData);
+        console.log('Data inserted successfully:', result);
+    } catch (error) {
+        console.error('Error inserting data:', error);
+    }
+}
+
 
 export async function initializeDatabase() {
 
-    if (await isCollectionEmpty()) {
-        console.log('Collection is empty. Inserting data from CSV.');
+    if (await isCollectionEmpty('Applications')) {
+        console.log('Collection Applications is empty. Inserting data from CSV.');
         await insertDataFromCSV();
     } else {
-        console.log('Collection already has data. Skipping CSV import.');
+        console.log('Collection Applications already has data. Skipping CSV import.');
+    }
+
+    if (await isCollectionEmpty('Resumes')) {
+        console.log('Collection Resumes is empty. Inserting data from CSV.');
+        await insertDataFromJSON();
+    } else {
+        console.log('Collection Resumes already has data. Skipping CSV import.');
     }
 }
