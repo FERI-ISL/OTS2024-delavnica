@@ -25,7 +25,7 @@ async function isCollectionEmpty() {
 async function insertDataFromCSV() {
     return new Promise((resolve, reject) => {
         const dataToInsert = [];
-        fs.createReadStream('./data/applications_test.csv')
+        fs.createReadStream('./src/data/applications_test.csv')
             .pipe(csv())
             .on('data', (row) => {
                 dataToInsert.push(row);

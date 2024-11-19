@@ -15,8 +15,8 @@ app.use(cors())
 app.use('/predict', predictController)
 app.use('/applications', applicationsController)
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
+app.get('/', (_, res) => {
+    res.send('Hello, Visitor!');
 });
 
 app.listen(PORT, () => {
