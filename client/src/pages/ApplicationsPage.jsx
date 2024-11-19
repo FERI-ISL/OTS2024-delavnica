@@ -7,7 +7,6 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 const ApplicationsPage = () => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [modalData, setModalData] = useState(null);
     const [employmentData, setEmploymentData] = useState(null)
     const [salaryData, setSalaryData] = useState(null)
     const [newModalOpen, setNewModalOpen] = useState(false)
@@ -34,13 +33,11 @@ const ApplicationsPage = () => {
         setEmploymentData(employmentPrediction.data.employment)
         setSalaryData(salaryPrediciton.data.salary)
 
-        setModalData(rowData);
         setModalOpen(true);
     };
 
     const handleCloseModal = () => {
-        setModalOpen(false);
-        setModalData(null);
+        setModalOpen(false)
     };
 
     const handleNewModalOpen = () => {
