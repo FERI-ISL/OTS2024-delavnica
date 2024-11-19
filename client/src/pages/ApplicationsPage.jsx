@@ -1,6 +1,6 @@
 import Menu from "../components/Menu";
 import DynamicTable from "../components/DynamicTable";
-import {Box, Button, Modal, TextField, Typography} from "@mui/material";
+import {Box, Button, InputLabel, MenuItem, Modal, Select, TextField, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
@@ -12,6 +12,17 @@ const ApplicationsPage = () => {
     const [salaryData, setSalaryData] = useState(null)
     const [newModalOpen, setNewModalOpen] = useState(false)
     const [data, setData] = useState([])
+    const [selectedAgeOption, setSelectedAgeOption] = useState('<35')
+    const [selectedAccessibilityOption, setSelectedAccessibilityOption] = useState('No')
+    const [selectedEdLevelOption, setSelectedEdLevelOption] = useState('Undergraduate')
+    const [selectedEmploymentOption, setSelectedEmploymentOption] = useState('No')
+    const [selectedGenderOption, setSelectedGenderOption] = useState('Man')
+    const [selectedMentalHealthOption, setSelectedMentalHealthOption] = useState('Yes')
+    const [selectedMainBranchOption, setSelectedMainBranchOption] = useState('Dev')
+    const [yearsCode, setYearsCode] = useState(0)
+    const [yearsCodePro, setYearsCodePro] = useState(0)
+    const [country, setCountry] = useState('Slovenia')
+    const [computerSkills, setComputerSkills] = useState(0)
 
     const handleInfoClick = async (rowData) => {
         const employmentPrediction = await axios.post('http://localhost:5555/predict/employment', rowData)
@@ -50,6 +61,59 @@ const ApplicationsPage = () => {
         }
     }
 
+    const handleAgeChange = (event) => {
+        setSelectedAgeOption(event.target.value);
+    }
+
+    const handleAccessibilityChange = (event) => {
+        setSelectedAccessibilityOption(event.target.value);
+    }
+
+    const handleEdLevelChange = (event) => {
+        setSelectedEdLevelOption(event.target.value);
+    }
+
+    const handleEmploymentChange = (event) => {
+        setSelectedEmploymentOption(event.target.value);
+    }
+
+    const handleGenderChange = (event) => {
+        setSelectedGenderOption(event.target.value);
+    }
+
+    const handleMentalHealthChange = (event) => {
+        setSelectedMentalHealthOption(event.target.value);
+    }
+
+    const handleMainBranchChange = (event) => {
+        setSelectedMainBranchOption(event.target.value);
+    }
+
+    const handleSaveNewApplication = async () => {
+        const newApplication = {
+            Age: selectedAgeOption,
+            Accessibility: selectedAccessibilityOption,
+            EdLevel: selectedEdLevelOption,
+            Employment: selectedEmploymentOption,
+            Gender: selectedGenderOption,
+            MentalHealth: selectedMentalHealthOption,
+            MainBranch: selectedMainBranchOption,
+            YearsCode: yearsCode,
+            YearsCodePro: yearsCodePro,
+            Country: country,
+            ComputerSkills: computerSkills
+        }
+
+        const addResponse = await axios.post('http://localhost:5555/applications', newApplication)
+
+        if(addResponse.status === 201) {
+            handleNewModalClose()
+            fetchApplicationsData()
+        } else {
+            console.log(addResponse.data.message)
+        }
+    }
+
     useEffect(() => {
         fetchApplicationsData()
     }, [])
@@ -71,7 +135,7 @@ const ApplicationsPage = () => {
 
             <DynamicTable data={data} infoCallback={handleInfoClick} />
 
-             <Modal
+            <Modal
                 open={modalOpen}
                 onClose={handleCloseModal}
                 aria-labelledby="modal-title"
@@ -126,35 +190,154 @@ const ApplicationsPage = () => {
                         boxShadow: 24,
                         p: 4,
                         borderRadius: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        maxHeight: '75%',
+                        overflowY: 'scroll'
                     }}
                 >
                     <Typography id="new-modal-title" variant="h6" component="h2">
                         Create New Item
                     </Typography>
                     <Typography id="new-modal-description" sx={{ mt: 2 }}>
+                        <InputLabel id="select-label-age">Age</InputLabel>
+                        <Select
+                            labelId="select-label-age"
+                            id="select-age"
+                            value={selectedAgeOption}
+                            onChange={handleAgeChange}
+                            fullWidth
+                            sx={{mb: 2}}
+                        >
+                            <MenuItem value="<35">{'<35'}</MenuItem>
+                            <MenuItem value=">35">{'>35'}</MenuItem>
+                        </Select>
+
+                        <InputLabel id="select-label-accessibility">Accessibility</InputLabel>
+                        <Select
+                            labelId="select-label-accessibility"
+                            id="select-accessibility"
+                            value={selectedAccessibilityOption}
+                            onChange={handleAccessibilityChange}
+                            fullWidth
+                            sx={{mb: 2}}
+                        >
+                            <MenuItem value="Yes">Yes</MenuItem>
+                            <MenuItem value="No">No</MenuItem>
+                        </Select>
+
+                        <InputLabel id="select-label-ed-level">EdLevel</InputLabel>
+                        <Select
+                            labelId="select-label-ed-level"
+                            id="select-ed-level"
+                            value={selectedEdLevelOption}
+                            onChange={handleEdLevelChange}
+                            fullWidth
+                            sx={{mb: 2}}
+                        >
+                            <MenuItem value="Undergraduate">Undergraduate</MenuItem>
+                            <MenuItem value="Master">Master</MenuItem>
+                            <MenuItem value="PhD">PhD</MenuItem>
+                            <MenuItem value="NoHigherEd">NoHigherEd</MenuItem>
+                            <MenuItem value="Other">Other</MenuItem>
+                        </Select>
+
+                        <InputLabel id="select-label-employment">Employment</InputLabel>
+                        <Select
+                            labelId="select-label-employment"
+                            id="select-employment"
+                            value={selectedEmploymentOption}
+                            onChange={handleEmploymentChange}
+                            fullWidth
+                            sx={{mb: 2}}
+                        >
+                            <MenuItem value="Yes">Yes</MenuItem>
+                            <MenuItem value="No">No</MenuItem>
+                        </Select>
+
+                        <InputLabel id="select-label-gender">Gender</InputLabel>
+                        <Select
+                            labelId="select-label-gender"
+                            id="select-gender"
+                            value={selectedGenderOption}
+                            onChange={handleGenderChange}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                        >
+                          <MenuItem value="Man">Man</MenuItem>
+                          <MenuItem value="Woman">Woman</MenuItem>
+                          <MenuItem value="NonBinary">NonBinary</MenuItem>
+                        </Select>
+
+                        <InputLabel id="select-label-mental-health">Mental Health</InputLabel>
+                        <Select
+                            labelId="select-label-mental-health"
+                            id="select-mental-health"
+                            value={selectedMentalHealthOption}
+                            onChange={handleMentalHealthChange}
+                            fullWidth
+                            sx={{mb: 2}}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+
+                        <InputLabel id="select-label-main-branch">Main Branch</InputLabel>
+                        <Select
+                            labelId="select-label-main-branch"
+                            id="select-main-branch"
+                            value={selectedMainBranchOption}
+                            onChange={handleMainBranchChange}
+                            fullWidth
+                            sx={{mb: 2}}
+                        >
+                          <MenuItem value="Dev">Dev</MenuItem>
+                          <MenuItem value="NotDev">NotDev</MenuItem>
+                        </Select>
+
                         <TextField
                             fullWidth
-                            label="Name"
+                            type={'number'}
+                            label="YearsCode"
                             variant="outlined"
                             sx={{ mb: 2 }}
+                            value={yearsCode}
+                            onChange={(event) => {setYearsCode(parseInt(event.target.value))}}
                         />
+
                         <TextField
                             fullWidth
-                            label="Age"
+                            type={'number'}
+                            label="YearsCodePro"
                             variant="outlined"
                             sx={{ mb: 2 }}
+                            value={yearsCodePro}
+                            onChange={(event) => {setYearsCodePro(parseInt(event.target.value))}}
                         />
+
                         <TextField
                             fullWidth
-                            label="Profession"
+                            label="Country"
                             variant="outlined"
                             sx={{ mb: 2 }}
+                            value={country}
+                            onChange={(event) => {setCountry(event.target.value)}}
+                        />
+
+                        <TextField
+                            fullWidth
+                            type={'number'}
+                            label="ComputerSkills"
+                            variant="outlined"
+                            sx={{ mb: 2 }}
+                            value={computerSkills}
+                            onChange={(event) => {setComputerSkills(parseInt(event.target.value))}}
                         />
                     </Typography>
                     <Button onClick={handleNewModalClose} sx={{ mt: 3 }} variant="contained">
                         Close
                     </Button>
-                    <Button onClick={handleNewModalClose} sx={{ mt: 3, ml: 3 }} variant="contained">
+                    <Button onClick={handleSaveNewApplication} sx={{ mt: 3 }} variant="contained">
                         Save
                     </Button>
                 </Box>
