@@ -1,7 +1,7 @@
 import onnxruntime from 'onnxruntime-node'
 
-const employ_session = await onnxruntime.InferenceSession.create('./models/employed_model.onnx')
-const salary_session = await onnxruntime.InferenceSession.create('./models/salary_model.onnx')
+const employ_session = await onnxruntime.InferenceSession.create('./src/models/employed_model.onnx')
+const salary_session = await onnxruntime.InferenceSession.create('./src/models/salary_model.onnx')
 
 export const createInputsEmployment = (value_object) => {
     const features = {

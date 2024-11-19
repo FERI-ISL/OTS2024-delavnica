@@ -17,8 +17,8 @@ app.use('/predict', predictController)
 app.use('/applications', applicationsController)
 app.use('/resumes', resumesController)
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
+app.get('/', (_, res) => {
+    res.send('Hello, Visitor!');
 });
 
 app.listen(PORT, () => {
