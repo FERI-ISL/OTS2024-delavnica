@@ -1,6 +1,6 @@
 import Menu from "../components/Menu"
 import DynamicTable from "../components/DynamicTable"
-import {Box, Button, InputAdornment, Modal, TextField, Typography} from "@mui/material"
+import {Box, Button, Modal, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
 import axios from "axios"
 
@@ -8,7 +8,6 @@ import axios from "axios"
 const ResumesPage = ({worker}) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [modalData, setModalData] = useState(null)
-    const [searchQuery, setSearchQuery] = useState('')
     const [resumesData, setResumesData] = useState([])
 
     const handleInfoClick = async (rowData) => {

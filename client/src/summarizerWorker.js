@@ -8,12 +8,12 @@ env.useBrowserCache = false;
 class MySummaryPipeline {
     static task = 'summarization';
     static instance = null;
-    //static model = 'Xenova/nllb-200-distilled-600M';
+    static model = ''; // we can use a model from the Hugging Face model hub https://huggingface.co/models?pipeline_tag=summarization&library=transformers.js,onnx&sort=trending
 
     static async getInstance() {
         if (this.instance === null) {
             console.log('Loading pipeline');
-            this.instance = await pipeline(this.task);
+            this.instance = await pipeline(this.task, this.model);
             console.log('Pipeline loaded');
         }
         return this.instance;
