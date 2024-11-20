@@ -27,7 +27,6 @@ router.post('/salary', async (req, res) => {
         console.log('Salary error', err)
         return res.json({'salary': NaN})
     }
-
 })
 
 export default router

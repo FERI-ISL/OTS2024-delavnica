@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 const Menu = () => {
     const navigation = useNavigate()
 
+    const currentPath = window.location.pathname;
+
     return (
         <Box
             sx={{
@@ -23,10 +25,18 @@ const Menu = () => {
             </Typography>
 
             <Stack direction="row" spacing={2}>
-                <Button variant="contained" color="primary" onClick={() => {navigation('/')}}>
+                <Button
+                    variant="contained"
+                    color={currentPath === '/' ? 'primary' : 'inherit'}
+                    onClick={() => { navigation('/') }}
+                >
                     Applications
                 </Button>
-                <Button variant="contained" color="primary" onClick={() => {navigation('/resumes')}}>
+                <Button
+                    variant="contained"
+                    color={currentPath === '/resumes' ? 'primary' : 'inherit'}
+                    onClick={() => { navigation('/resumes') }}
+                >
                     Resumes
                 </Button>
             </Stack>

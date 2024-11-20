@@ -6,7 +6,6 @@ import {createConnection, initializeDatabase} from "./connection.js";
 import applicationsController from "./controllers/applications-controller.js";
 import resumesController from "./controllers/resumes-controller.js";
 
-
 const app = express()
 const PORT = 5555
 
@@ -17,8 +16,8 @@ app.use('/predict', predictController)
 app.use('/applications', applicationsController)
 app.use('/resumes', resumesController)
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
+app.get('/', (_, res) => {
+    res.send('Hello visitor!');
 });
 
 app.listen(PORT, () => {

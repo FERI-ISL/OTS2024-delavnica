@@ -14,13 +14,14 @@ services:
     networks:
       - app-network
 
-
   backend:
     build:
       context: ./backend
     container_name: express-backend
     ports:
       - "5555:5555"
+    volumes:
+      - ./backend/src:/app/src
     networks:
       - app-network
     depends_on:
@@ -32,6 +33,9 @@ services:
     container_name: react-frontend
     ports:
       - "3000:3000"
+    volumes:
+      - ./client/src:/app/src
+      - ./client/public:/app/public
     networks:
       - app-network
     depends_on:

@@ -11,14 +11,14 @@ router.get('/', async (req, res) => {
         return res.status(200).json({applications})
     } catch (err) {
         console.log('Employment error', err)
+        res.status(500).json({message: err})
     }
-
 })
 
 router.post('/', async (req, res) => {
     try {
         const body = req.body
-
+        
         const employmentInputs = createInputsEmployment(body)
         const employmentPrediction = await predictEmployment(employmentInputs)
 
@@ -29,9 +29,9 @@ router.post('/', async (req, res) => {
         application.Employed = employmentPrediction
         application.ExpectedSalary = salaryPrediction
 
-        await ApplicationModel.create(application)
+        const insertedAppplication = await ApplicationModel.create(application)
 
-        return res.status(201).json({message: 'Application created'})
+        return res.status(201).json(insertedAppplication)
     } catch (err) {
         console.log('Employment error', err)
         return res.status(500).json({message: err})

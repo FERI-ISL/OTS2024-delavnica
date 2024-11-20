@@ -1,13 +1,14 @@
 FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install -g npm@10.9.0 && npm install
+RUN npm install
 
-# copy everything except the files in .dockerignore
-COPY . .
+ENV FAST_REFRESH = false
+ENV SKIP_PREFLIGHT_CHECK=true
+ENV WATCHPACK_POLLING=true
 
 EXPOSE 5555
 

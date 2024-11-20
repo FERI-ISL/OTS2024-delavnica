@@ -3,10 +3,13 @@ FROM node:18
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
-COPY . .
+ENV FAST_REFRESH = false
+ENV SKIP_PREFLIGHT_CHECK=true
+ENV WATCHPACK_POLLING=true
 
-EXPOSE 5555
+EXPOSE 3000
 
 CMD ["npm", "start"]
