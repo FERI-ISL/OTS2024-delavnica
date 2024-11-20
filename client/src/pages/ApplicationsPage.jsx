@@ -105,7 +105,8 @@ const ApplicationsPage = () => {
 
         if(addResponse.status === 201) {
             handleNewModalClose()
-            fetchApplicationsData()
+            // apppend new application to the data
+            setData([...data, addResponse.data])
         } else {
             console.log(addResponse.data.message)
         }
@@ -196,7 +197,7 @@ const ApplicationsPage = () => {
                         overflowY: 'scroll'
                     }}
                 >
-                    <Typography id="new-modal-title" variant="h6" component="h2">
+                    <Typography id="new-modal-title" variant="h6" component="h2" sx={{ borderBottom: "1px solid #ededed", textAlign: "center", marginBottom: "0.5em" }}>
                         Create New Item
                     </Typography>
                     <Typography id="new-modal-description" sx={{ mt: 2 }}>

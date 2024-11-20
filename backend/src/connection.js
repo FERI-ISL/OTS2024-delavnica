@@ -38,7 +38,7 @@ async function insertDataFromCSV() {
             .on('end', async () => {
                 try {
                     await ApplicationModel.insertMany(dataToInsert);
-                    console.log('CSV data successfully inserted into MongoDB');
+                    console.log('CSV data successfully inserted into MongoDB!');
                     resolve();
                 } catch (error) {
                     console.error('Error inserting data:', error);
@@ -54,7 +54,7 @@ async function insertDataFromCSV() {
 
 const insertDataFromJSON = async () => {
     try {
-        const jsonData = JSON.parse(fs.readFileSync('./data/resumes.json', 'utf8'));
+        const jsonData = JSON.parse(fs.readFileSync('./src/data/resumes.json', 'utf8'));
 
         const result = await ResumeModel.insertMany(jsonData);
         console.log('Data inserted successfully:', result);
@@ -74,9 +74,9 @@ export async function initializeDatabase() {
     }
 
     if (await isCollectionEmpty('Resumes')) {
-        console.log('Collection Resumes is empty. Inserting data from CSV.');
+        console.log('Collection Resumes is empty. Inserting data from json.');
         await insertDataFromJSON();
     } else {
-        console.log('Collection Resumes already has data. Skipping CSV import.');
+        console.log('Collection Resumes already has data. Skipping json import.');
     }
 }

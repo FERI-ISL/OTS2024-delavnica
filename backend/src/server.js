@@ -17,7 +17,7 @@ app.use('/applications', applicationsController)
 app.use('/resumes', resumesController)
 
 app.get('/', (_, res) => {
-    res.send('Hello, Visitor!');
+    res.send('Hello visitor!');
 });
 
 app.listen(PORT, () => {

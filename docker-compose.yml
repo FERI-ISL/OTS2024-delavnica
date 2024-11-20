@@ -38,6 +38,8 @@ services:
       - ./client/public:/app/public
     networks:
       - app-network
+    depends_on:
+      - backend
 
 networks:
   app-network:
