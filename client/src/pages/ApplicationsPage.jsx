@@ -119,7 +119,7 @@ const ApplicationsPage = () => {
         <>
             <Menu />
 
-            <Box sx={{ maxWidth: '90%', margin: '20px auto', display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ maxWidth: '50%', margin: '20px auto', display: 'flex', justifyContent: 'flex-end' }}>
                 <Button
                     variant="contained"
                     color="primary"
@@ -144,31 +144,34 @@ const ApplicationsPage = () => {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 500,
+                        width: 350,
                         bgcolor: 'background.paper',
                         boxShadow: 24,
                         p: 4,
                         borderRadius: 2,
                     }}
                 >
-                    <Typography id="modal-title" variant="h6" component="h2">
+                    <Typography id="modal-title" variant="h5" component="h2" sx={{ borderBottom: "1px solid #ededed", textAlign: "center", marginBottom: "0.5em" }}>
                         Predictions
                     </Typography>
 
-                    <Box id={'modal-description-predictions'}>
-                        <div>
-                            <strong>Employment:</strong> {employmentData !== null && employmentData !== undefined ? employmentData : 'N/A'}
-                        </div>
-                        <div>
-                            <strong>Salary:</strong> {salaryData !== null && salaryData !== undefined ? salaryData.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'N/A'}
-                        </div>
+                    <Box id={'modal-description-predictions'} sx={{ textAlign: "center" }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: 'right', paddingRight: '10px' }}><strong>Employment:</strong></td>
+                                    <td style={{ textAlign: 'left' }}>{employmentData !== null && employmentData !== undefined ? employmentData : 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'right', paddingRight: '10px' }}><strong>Salary:</strong></td>
+                                    <td style={{ textAlign: 'left' }}>{salaryData !== null && salaryData !== undefined ? salaryData.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : 'N/A'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <Button onClick={handleCloseModal} sx={{ mt: 3 }} variant="contained">Close</Button>
                     </Box>
-                    <Button onClick={handleCloseModal} sx={{ mt: 3 }} variant="contained">
-                        Close
-                    </Button>
                 </Box>
             </Modal>
-
 
             <Modal
                 open={newModalOpen}
