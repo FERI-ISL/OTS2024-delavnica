@@ -1,12 +1,12 @@
 import express from "express"
-import {createInputsEmployment, predictEmployment, createInputsSalary, predictSalary} from "../models/model_utils.js"
+import {createInputs, predictEmployment, predictSalary} from "../models/model_utils.js"
 
 const router = express.Router();
 
 router.post('/employment', async (req, res) => {
     try {
         const body = req.body
-        const inputs = createInputsEmployment(body)
+        const inputs = createInputs(body)
         const prediction = await predictEmployment(inputs)
 
         return res.json({'employment': prediction})
@@ -19,7 +19,7 @@ router.post('/employment', async (req, res) => {
 router.post('/salary', async (req, res) => {
     try {
         const body = req.body
-        const inputs = createInputsSalary(body)
+        const inputs = createInputs(body)
         const prediction = await predictSalary(inputs)
 
         return res.json({'salary': prediction})

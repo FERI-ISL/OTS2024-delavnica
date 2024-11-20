@@ -1,6 +1,6 @@
 import express from "express";
 import ApplicationModel from "../schemas/application.js";
-import {createInputsEmployment, createInputsSalary, predictEmployment, predictSalary} from "../models/model_utils.js";
+import {createInputs, predictEmployment, predictSalary} from "../models/model_utils.js";
 
 const router = express.Router();
 
@@ -19,10 +19,10 @@ router.post('/', async (req, res) => {
     try {
         const body = req.body
         
-        const employmentInputs = createInputsEmployment(body)
+        const employmentInputs = createInputs(body)
         const employmentPrediction = await predictEmployment(employmentInputs)
 
-        const salaryInputs = createInputsSalary(body)
+        const salaryInputs = createInputs(body)
         const salaryPrediction = await predictSalary(salaryInputs)
 
         const application = {...body}
