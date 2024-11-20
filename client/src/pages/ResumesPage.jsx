@@ -5,13 +5,12 @@ import {useEffect, useState} from "react"
 import axios from "axios"
 
 
-const ResumesPage = ({worker}) => {
+const ResumesPage = () => {
     const [modalOpen, setModalOpen] = useState(false)
     const [modalData, setModalData] = useState(null)
     const [resumesData, setResumesData] = useState([])
 
     const handleInfoClick = async (rowData) => {
-        worker.postMessage(rowData.resume);
         setModalData('Generating summary...')
         setModalOpen(true)
     }
@@ -32,16 +31,6 @@ const ResumesPage = ({worker}) => {
 
     useEffect(() => {
         fetchResumesData()
-        console.log('Worker:', worker);
-        if (worker) {
-            console.log('Creating onmessage listener')
-            console.log(worker)
-            worker.onmessage = (e) => {
-                console.log('Data from worker:', e.data)
-                setModalData(e.data.output[0].summary_text)
-            }
-            console.log('Worker created');
-        }
     }, [])
 
     return (

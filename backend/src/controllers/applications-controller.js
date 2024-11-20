@@ -16,27 +16,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    try {
-        const body = req.body
-        
-        const employmentInputs = createInputs(body)
-        const employmentPrediction = await predictEmployment(employmentInputs)
-
-        const salaryInputs = createInputs(body)
-        const salaryPrediction = await predictSalary(salaryInputs)
-
-        const application = {...body}
-        application.Employed = employmentPrediction
-        application.ExpectedSalary = salaryPrediction
-
-        const insertedAppplication = await ApplicationModel.create(application)
-
-        return res.status(201).json(insertedAppplication)
-    } catch (err) {
-        console.log('Employment error', err)
-        return res.status(500).json({message: err})
-    }
-
+    
 })
 
 export default router

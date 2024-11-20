@@ -5,11 +5,7 @@ const router = express.Router();
 
 router.post('/employment', async (req, res) => {
     try {
-        const body = req.body
-        const inputs = createInputs(body)
-        const prediction = await predictEmployment(inputs)
-
-        return res.json({'employment': prediction})
+        return res.json({'employment': NaN})
     } catch (err) {
         console.log('Employment error', err)
         return res.json({'employment': NaN})
@@ -18,11 +14,7 @@ router.post('/employment', async (req, res) => {
 
 router.post('/salary', async (req, res) => {
     try {
-        const body = req.body
-        const inputs = createInputs(body)
-        const prediction = await predictSalary(inputs)
-
-        return res.json({'salary': prediction})
+        return res.json({'salary': NaN})
     } catch (err) {
         console.log('Salary error', err)
         return res.json({'salary': NaN})

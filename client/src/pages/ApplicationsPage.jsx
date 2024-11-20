@@ -24,15 +24,6 @@ const ApplicationsPage = () => {
     const [computerSkills, setComputerSkills] = useState(0)
 
     const handleInfoClick = async (rowData) => {
-        const employmentPrediction = await axios.post('http://localhost:5555/predict/employment', rowData)
-        const salaryPrediciton = await axios.post('http://localhost:5555/predict/salary', rowData)
-
-        console.log(employmentPrediction.data.employment)
-        console.log(salaryPrediciton.data.salary)
-
-        setEmploymentData(employmentPrediction.data.employment)
-        setSalaryData(salaryPrediciton.data.salary)
-
         setModalOpen(true);
     };
 
