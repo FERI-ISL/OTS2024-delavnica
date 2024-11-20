@@ -17,7 +17,7 @@ app.use('/applications', applicationsController)
 app.use('/resumes', resumesController)
 
 app.get('/', (_, res) => {
-    res.send('Hello visitor!');
+    res.send('Hello visitor!')
 });
 
 app.listen(PORT, () => {
@@ -25,5 +25,5 @@ app.listen(PORT, () => {
         initializeDatabase()
     })
 
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`)
 });

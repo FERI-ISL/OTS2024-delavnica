@@ -51,7 +51,6 @@ const ApplicationsPage = () => {
     const fetchApplicationsData = async () => {
         try {
             const applications = await axios.get('http://localhost:5555/applications')
-
             setData(applications.data.applications)
         } catch (err) {
             console.log('Error fetching data')
@@ -104,9 +103,8 @@ const ApplicationsPage = () => {
         const addResponse = await axios.post('http://localhost:5555/applications', newApplication)
 
         if(addResponse.status === 201) {
-            handleNewModalClose()
-            // apppend new application to the data
             setData([...data, addResponse.data])
+            handleNewModalClose()
         } else {
             console.log(addResponse.data.message)
         }
@@ -119,7 +117,6 @@ const ApplicationsPage = () => {
     return (
         <>
             <Menu />
-
             <Box sx={{ maxWidth: '50%', margin: '20px auto', display: 'flex', justifyContent: 'flex-end' }}>
                 <Button
                     variant="contained"
